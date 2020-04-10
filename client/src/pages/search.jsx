@@ -24,6 +24,25 @@ const Search = () => {
 
     }, [apiClasses])
 
+const Subject = (props) => {
+    let color = 'blue'
+    if (props.item.courseDiscipline = "History") {
+        color = 'green'
+    } else if (props.item.courseDiscipline = "Math") {
+        color = 'red'
+    } else (
+        color = 'purple'
+    )
+
+    return (
+        <h6
+        style={{color}}
+        >{props.item.courseDiscipline}</h6>
+        
+    )}
+
+    console.log(Subject);
+
 
     async function getAndVerifyUserInfo() {
         try {
@@ -164,7 +183,7 @@ const Search = () => {
                                    {item.courseDescription}
                                    </Grid>
                                    <Grid item xs={3}>
-                                   Course subject: <p/> <h6>{item.courseDiscipline}</h6>
+                                   Course subject: <p/> {Subject} <h6>{item.courseDiscipline}</h6>
                                     </Grid>
                                     
                                </ListItem>
