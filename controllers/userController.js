@@ -7,6 +7,8 @@ const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const IDfunctions = require("./functions");
 require("dotenv").config();
+// blacklisting: https://auth0.com/blog/blacklist-json-web-token-api-keys/
+// get expressjwt npm
 
 // get all users
 router.get("/", async (req, res) => {
@@ -179,7 +181,7 @@ router.post("/login", (req, res) => {
         const accessToken = generateAccessToken(user);
         res.cookie("authorization", accessToken, {
           expires: new Date(Date.now() + "1440m"),
-          secure: true, // using https set bool to true **IMPORTANT FOR PRODUCTION
+          secure: false, // using https set bool to true **IMPORTANT FOR PRODUCTION
           httpOnly: true,
           sameSite: true
         });
@@ -224,7 +226,7 @@ router.get("/logout/:id", async (req, res) => {
             const ephemeralToken = generateEphemeralToken(user);
             res.cookie("authorization", ephemeralToken, {
               expires: new Date(Date.now() + "1440m"),
-              secure: true, // using https set bool to true **IMPORTANT FOR PRODUCTION
+              secure: false, // using https set bool to true **IMPORTANT FOR PRODUCTION
               httpOnly: true,
               sameSite: true
             })
