@@ -9,7 +9,6 @@ const Logout = () => {
     const [userType, setUserType] = useState("");
     const [userID, setUserID] = useState("")
 
-    // boilerplate
     function getAndVerifyUserInfo() {
         API.readAndVerifyCookie()
             .then((resp) => {
@@ -17,15 +16,12 @@ const Logout = () => {
                 console.table("dropping the load: ", resp.data.payload)
                 setUserType(resp.data.payload.type)
                 setUserID(resp.data.payload._id)
-                console.log(userType)
-                console.log(userID)
             })
             .catch(error => {
                 console.log(error)
                 history.replace('/')
             })
     }
-    // lifecycle hook
     useEffect(() => {
         getAndVerifyUserInfo()
     }, [userType, userID])

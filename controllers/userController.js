@@ -158,7 +158,6 @@ router.post("/register", async (req, res) => {
 });
 
 function generateAccessToken(user) {
-  // lifespan -> 1440m = 24h = 1d
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
     expiresIn: "1440m"
   })
@@ -196,7 +195,6 @@ router.post("/login", (req, res) => {
 
 
 function generateEphemeralToken(user) {
-  // lifespan -> ephemeral af
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
     expiresIn: 1
   })

@@ -195,9 +195,9 @@ const DashBoardTeacher = (props) => {
                     </g>
                 </svg>
                 {userType === 'Teacher' ?
-                    <p className='teachertext'>Click the <Fab size="small" color="secondary" aria-label="add">
-                        <AddIcon onClick={handleCreateClass} />
-                    </Fab> <span> to create a course</span>
+                    <p className='teachertext'>Create&nbsp;<Fab size="small" color="secondary" aria-label="add">
+                        &nbsp;<AddIcon onClick={handleCreateClass} />&nbsp;
+                    </Fab> <span>Course</span>
                     </p> : ''
                 }
             </Grid>

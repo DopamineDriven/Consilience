@@ -91,8 +91,7 @@ connection with remote database established via robo3T
     - Implemented when a new user is created
     - 10 rounds of salting
     - Unhashed password is never stored in the database
-    - all objects performing a response to json have hashed passwords deliberately deleted from collection replicas made via ({ ...xyz._doc })
-
+    - all objects performing res.json have hashed passwords deliberately deleted from clones
 ### Generating environmental secrets
 - open terminal in vscode
     - type: node 
