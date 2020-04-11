@@ -233,9 +233,9 @@ router.get("/logout/:id", async (req, res) => {
             console.log("this is ephemeralToken data", ephemeralToken)
             // res.removeHeader("authorization", ephemeralToken);
             res.json({ user });
-          }
-        }
-      }
+          } else res.status(403)
+        } else {(err) => console.log(err).send("user type not found")}
+      } 
     ).catch(() => res.status(404))
   } catch (error) {
     if (error) {
