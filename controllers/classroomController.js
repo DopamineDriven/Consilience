@@ -354,6 +354,13 @@ module.exports = {
       })
   },
 
+  updateGrades: function (req, res) {
+    db.ClassroomModel
+      .findByIdAndUpdate(req.params.classID)
+      .populate('assignments', 'title')
+      .then(res.console.log(req.params.classID))
+  },
+
   getGrades: function (req, res) {
     //need userID as param, 
 

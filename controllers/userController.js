@@ -9,6 +9,7 @@ const IDfunctions = require("./functions");
 require("dotenv").config();
 // blacklisting: https://auth0.com/blog/blacklist-json-web-token-api-keys/
 // get expressjwt npm
+// use redis to blacklist https://futurestud.io/tutorials/learn-hapi-invalidate-jwts-with-blacklists
 
 // get all users
 router.get("/", async (req, res) => {
