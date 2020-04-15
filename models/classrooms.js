@@ -74,12 +74,6 @@ const ClassroomSchema = new Schema(
   });
 
 // https://mongoosejs.com/docs/api/virtualtype.html#virtualtype_VirtualType-get
-// incorporate dynamically-created properties to workoutSchema
-// workoutSchema.virtual("totalDuration").get(function () {
-//     return this.exercises.reduce((total, exercise) => {
-//         return total+exercise.duration
-//     }, 0)
-// });
 
 const ClassroomModel = mongoose.model("Classroom", ClassroomSchema);
 

@@ -1,11 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 // const validate = require('validator');
-const jwt = require('jsonwebtoken');
 require('dotenv').config();
-// const moment = require('moment');
-//const dateChicago = moment.parseZone()
-//const dateChicago = moment().tz("America/Chicago").format();
 
 const RegisterSchema = new Schema(
   {
@@ -35,7 +31,7 @@ const RegisterSchema = new Schema(
                 type: String,
                 trim: true
                 },
-            // TOUCH ON THIS LATER
+            // TOUCH ON THIS LATER!!!
             // activeCourses: {
             //     type: String,
             //     trim: true,
@@ -47,11 +43,6 @@ const RegisterSchema = new Schema(
             email: {
                 type: String,
                 validate: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                // validate: value => {
-                //     if (!validator.isEmail(value)) {
-                //         throw new Error({ error: 'Invalid Email address' })
-                //     }
-                // },
                 required: true,
                 unique: true
             },
@@ -78,12 +69,6 @@ const RegisterSchema = new Schema(
                   }
                 }
               ],
-            // // tokens: [{
-            //     token: {
-            //         type: Array,
-            //         // required: true
-            //     },
-            // }],
             createDate: {
                 type: Date,
                 required: true,
@@ -101,32 +86,6 @@ const RegisterSchema = new Schema(
     }
   }
 );
-
-// RegisterSchema.methods.generateAuthToken = async function () {
-//     // Generate an auth token for the user
-//     const user = this
-//     const token = jwt.sign({_id: user._id}, process.env.ACCESS_TOKEN_SECRET,  { expiresIn: '300m' })
-//     user.tokens = user.tokens.concat({token})
-//     await user.save()
-//     return token
-// }
-
-
-// Mongoose Methods Github https://github.com/Automattic/mongoose
-// possible methods PRE HOOK
-// // hash user password before saving into database
-// RegisterModel.pre('save', (next) => {
-//     this.password = bcrypt.hashSync(this.password, saltRounds(10));
-//     next();
-//     });
-
-// https://mongoosejs.com/docs/api/virtualtype.html#virtualtype_VirtualType-get
-// incorporate dynamically-created properties to workoutSchema
-// workoutSchema.virtual("totalDuration").get(function () {
-//     return this.exercises.reduce((total, exercise) => {
-//         return total+exercise.duration
-//     }, 0)
-// });
 
 const RegisterModel = mongoose.model("Register", RegisterSchema);
 
