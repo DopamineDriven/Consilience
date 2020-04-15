@@ -27,6 +27,7 @@ const Logout = () => {
     }, [userType, userID])
 
     function logoutUser () {
+        localStorage.removeItem("classId")
         API.userAuthLogout(userID)
         console.log("logging out")
         history.replace('/')
