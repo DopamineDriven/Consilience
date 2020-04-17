@@ -116,7 +116,7 @@ const Search = () => {
                                     <MenuItem value={'all'}>All Classes</MenuItem>
                                     <MenuItem value={'courseTitle'}>Title</MenuItem>
                                     <MenuItem value={'courseDescription'}>Description</MenuItem>
-                                    <MenuItem value={'subject'}>Subject</MenuItem>
+                                    <MenuItem value={'subject'}>Discipline</MenuItem>
                                 </Select>
                             </Grid>
                             <Grid item xs={6} className='searchbar'>

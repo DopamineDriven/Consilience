@@ -9,7 +9,6 @@ const Logout = () => {
     const [userType, setUserType] = useState("");
     const [userID, setUserID] = useState("")
 
-    // boilerplate
     function getAndVerifyUserInfo() {
         API.readAndVerifyCookie()
             .then((resp) => {
@@ -17,23 +16,21 @@ const Logout = () => {
                 console.table("dropping the load: ", resp.data.payload)
                 setUserType(resp.data.payload.type)
                 setUserID(resp.data.payload._id)
-                console.log(userType)
-                console.log(userID)
             })
             .catch(error => {
                 console.log(error)
-                history.replace('/')
+                history.replace('/login')
             })
     }
-    // lifecycle hook
     useEffect(() => {
         getAndVerifyUserInfo()
     }, [userType, userID])
 
     function logoutUser () {
+        localStorage.removeItem("classId")
         API.userAuthLogout(userID)
         console.log("logging out")
-        history.replace('/')
+        history.replace('/login')
     }
     // api to use ====> 
     // API.userLogout (by id, userID) ==> replaces cookie containing JWT with

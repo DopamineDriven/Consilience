@@ -6,7 +6,11 @@ const db = require("../models");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const IDfunctions = require("./functions");
+const isProd = process.env.NODE_ENV === 'production';
 require("dotenv").config();
+// blacklisting: https://auth0.com/blog/blacklist-json-web-token-api-keys/
+// get expressjwt npm
+// use redis to blacklist https://futurestud.io/tutorials/learn-hapi-invalidate-jwts-with-blacklists
 
 // get all users
 router.get("/", async (req, res) => {
@@ -158,7 +162,6 @@ router.post("/register", async (req, res) => {
 });
 
 function generateAccessToken(user) {
-  // lifespan -> 1440m = 24h = 1d
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
     expiresIn: "1440m"
   })
@@ -180,7 +183,7 @@ router.post("/login", (req, res) => {
         const accessToken = generateAccessToken(user);
         res.cookie("authorization", accessToken, {
           expires: new Date(Date.now() + "1440m"),
-          secure: true, // using https set bool to true **IMPORTANT FOR PRODUCTION
+          secure: isProd ? true : false,
           httpOnly: true,
           sameSite: true
         });
@@ -196,7 +199,6 @@ router.post("/login", (req, res) => {
 
 
 function generateEphemeralToken(user) {
-  // lifespan -> ephemeral af
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
     expiresIn: 1
   })
@@ -226,16 +228,16 @@ router.get("/logout/:id", async (req, res) => {
             const ephemeralToken = generateEphemeralToken(user);
             res.cookie("authorization", ephemeralToken, {
               expires: new Date(Date.now() + "1440m"),
-              secure: true, // using https set bool to true **IMPORTANT FOR PRODUCTION
+              secure: isProd ? true : false,
               httpOnly: true,
               sameSite: true
             })
             console.log("this is ephemeralToken data", ephemeralToken)
             // res.removeHeader("authorization", ephemeralToken);
             res.json({ user });
-          }
-        }
-      }
+          } else res.status(403)
+        } else {(err) => console.log(err).send("user type not found")}
+      } 
     ).catch(() => res.status(404))
   } catch (error) {
     if (error) {
