@@ -6,6 +6,12 @@
     - alternative deployment methods
 - Increase marketability
 
+### Technologies to Consider
+- ReactPlaceholder npm
+- CDN via CloudFront
+- Page Caching with lru-cache
+- 
+
 ### use cookies to store JWTs 
 - https://dev.to/mr_cea/remaining-stateless-jwt-cookies-in-node-js-3lle
 - Look into:
