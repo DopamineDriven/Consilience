@@ -1,4 +1,181 @@
-# ProjectThree
+# Consilience
+Consilience is the principle that evidence from independent, unrelated sources can "converge" on strong conclusions.  This platform exists to allow user to registered as 'Teachers' or 'Students.'  Both can search the classes listed and request to join them.  Each class a user joins will be generated on their dashboard and one can 'enter the classroom.'  The teacher has a gradebook option which allows them to create assignments and provide each student a grade for them. 
+
+This app also has pretty extension security that is detailed towards the bottom of the README.  Essentially we used JSON Web Tokens (JWTs) to create authorization keys that are set to expire in 24 hours.  Upon logging out the user is provide with a new JWT with a lifetime of 1 milisecond.
+
+the link to github is shown below:
+TBD
+
+the link to the functional app is shown below:
+TBD
+
+## Table of Contents
+* [User Story](#user-story)
+* [Version 1.0](#version-1.0)
+* [How To Use](#how-to-use)
+* [Coding Languages Used](#coding-languages-used)
+* [NPMs Used](#npms-used)
+* [CSS Framework](#css-framework)
+* [Structure of Code and Functions](#structure-of-code-and-functions)
+* [Things To Imporve On](#things-to-improve-on)
+
+## User Story
+As a USER I believe that a person never stops learning and a lot of people out there have something to teach and learn from one another.  I want to be to search for classes and be able to keep track of them.  Consilience is a platform that can provide this for both those who have something to teach, want to learn, or both.
+
+## Version 1.0
+* This reactjs app runs via heroku or by entering the command "npm start" to initialize the react server.
+* Make sure you are in the main folder when running the code on the command line.
+* This app has seven pages: HOME, LOGIN, DASHBOARD, SEARCH, CLASSROOM, GRADEBOOK, LOGOUT
+*   Home page - is the start page and routes the user to login page
+*   Login page - allows the user to either login if they have an account or register as a new user and then login
+*   Dashboard - allows the user to see all the classes they are signed up to be in
+*  Search page - allows user to search the database of classes and request to join them
+*  Classroom page - has an annoucement board that users can post on, with an assignments div that shows the assignments for the class
+*   Gradebook page - allows the teacher, to add assignments and grades for those assignments to each student
+*   Logout page - lets the user logout.  Upon logging out they are assigned a new auth token that expires in 1 millisecond.    
+
+## How To Use
+See the layout of the app below.
+
+- STEP 1: The home page of the app has little description explaining what the app can be used for.  There are only three tabs that link to pages. Green box is the google books logo which will take the user to the google books site.  The blue box will render the search bar onto the page.  The red box will render the saved books onto the page.
+
+!["Starting page of App"](/client/public/assets/images/readme/home-page.jpg ) 
+
+- If the user chooses to click on the search tab.  The objects in the green box will be rendered onto the page.  The actual search input will be typed into the search box in the center.  User will select one of these four types of searches
+    - keyword 
+    - Author
+    - Title 
+    - Subject
+ When they are ready to search they will click on the Search button
+
+!["Search Layout"](/client/public/assets/images/readme/Search.jpg ) 
+
+- The rendered search results will appear onto the page as seen in image.  Each book has two buttons in upper right-hand corner.
+    - "View" will take user to google books link for that book
+    - "Save" will save the book to the database
+
+!["Rendered Search Results"](/client/public/assets/images/readme/render-search.png ) 
+
+- Clicking on the saved tab in the navbar will render all the saved books to the page.  Layout is identical to the searched books however one of the buttons has changed in upper right hand corner.  Shown in green box.  
+    - "View" same as on search page
+    - "Delete" will delete the book from the database
+
+!["Example of Table Filter Results"](/client/public/assets/images/readme/saved.jpg) 
+
+
+- The user is notified on both completed book save and book delete
+
+Modal that Renders on Saved Book                                        |  Modal that Renders on Delete Book
+:----------------------------------------------------------------------:|:--------------------------------------------------------------------:
+!["Saved Modal"](/client/public/assets/images/readme/save-modal.png ) |  !["Delete Modal"](/client/public/assets/images/readme/delete-modal.png )
+
+## Coding Languages Used
+* HTML
+* CSS
+* Javascript
+* React.js
+* JSX
+* Node.js
+
+## NPMs Used:
+# Client-Side
+* @material-ui/core
+* @material-ui/icons
+* @testing-library/jest-dom
+* @testing-library/react
+* @testing-library/user-event
+* animate.css
+* material-table
+* mdbreact
+* react
+* react-app-polyfill
+* react-dom
+* react-router-dom
+* react-scripts
+* react-toastify
+* styled-components
+
+# Back-end
+* @date-io/date-fns
+* @material-ui/core
+* axios
+* bcrypt
+* bcryptjs
+* body-parser
+* chance
+* cookie-parser
+* cors
+* dotenv
+* express
+* if-env
+* is-empty
+* jsonwebtoken
+* moment
+* mongodb
+* mongoose
+* morgan
+* multer
+* nodemailer - for version 2.0
+* passport
+* passport-http-bearer
+* passport-jwt
+* path
+* socket.io - didn't implement for version 2.0
+* validator"
+
+## CSS Framework:
+* Material UI
+* MdbReact
+
+## Structure of Code and Functions
+# Front-End - Client folder
+* public folder
+    - index.html - with react does not contain much code but necessary library links like for bulma.  It interacts with App.js
+* src folder - this is the meat of react and holds most of the front-end code
+    - components folder - all the html components that require some custom props and CSS have their own folder in component with an index.js file in it and style.css file if necessary
+        - bookResults
+            - this component contains the JSX that is used to render the book results to the page.  It is used by both Search and Saved pages
+        - button
+        - footer
+        - Grid
+            - this component contains functions for components use to create bulma layouts such as Col, Section, Container, and Tile
+        - Hero - bulmas version of jumbotron
+        - Modal
+        - Nav
+            - this component contains the code for the navbar.  Also contains functionality for the burger menu
+        - SearchBar
+            - this component contains the select option, input, and determines props of search button on search page 
+    - pages folder - contains the actual pages for the App
+        - Home.js - this is the homepage for the app.  Only has some text on it as of now.
+        - Saved.js - this page is rendered onto home page.  It renders all the saved books onto the apge
+        - Search.js - this page renders the select, input, and search buttons onto the page.  Then when search is executed it renders the returned results onto the page
+# Back-end
+* Controllers folder
+    - functions.js: this file contains a custom function used to validate if the response object brought back from google books api has a valid image link in it.  If not it just places a generic text string so object can be sent to front-end.
+    - googleBooksController.js: This file receives the search critieria sent from the front-end.  It assembles the proper query and then makes request to google books api.  Upon receiving response object back it takes what it wants out of and saves it to new object which it sends to the front-end
+    - savedBooksController.js: This file contains the four functions use to interact with the savedBooks Schema in database
+        - findById, create, delete, findAll
+* models folder
+    - index.js
+    - savedBook.js: this file creates the schema for the saved books in mongo
+* routes folder
+    - index.js: this file handles the first level of the routes and sends them either to the googleBooksController, apiFolder, or the React App
+    - api folder
+        - index.js: this file isn't super necessary for the few calls I have.  However, it is set-up to direct api routes to specific files.  This files directs all "/savedBook" routes to savedBook.js
+        -savedBooks.js: breaks the routes down further into 2 types "/" and "/:id" then calls the appropriate controller functions for them
+* server.js - where the back-end magic starts
+
+## Things To Imporve On
+
+* Add ability for comment value to be emptied upon submitting it
+* Add Ability to save attachments for assignments
+* Add ability for students to submit work for assignments
+* Add ability to remove and edit assignments
+* Add ability to remove & edit grades
+* Add default value for select button
+* Add a search by course discipline instead of search by subject
+* Using react-scheduler to add a schedule page for the teacher to create a class schedule
+
 MERN
 heroku repo created
 username and password for mLab also created
