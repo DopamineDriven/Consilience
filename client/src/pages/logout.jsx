@@ -19,7 +19,7 @@ const Logout = () => {
             })
             .catch(error => {
                 console.log(error)
-                history.replace('/')
+                history.replace('/login')
             })
     }
     useEffect(() => {
@@ -30,7 +30,7 @@ const Logout = () => {
         localStorage.removeItem("classId")
         API.userAuthLogout(userID)
         console.log("logging out")
-        history.replace('/')
+        history.replace('/login')
     }
     // api to use ====> 
     // API.userLogout (by id, userID) ==> replaces cookie containing JWT with

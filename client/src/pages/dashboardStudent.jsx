@@ -9,7 +9,7 @@ import ClassCard from "../components/ClassCard/StudentClassCard";
 
 import Card from "@material-ui/core/Card";
 import { styled } from "@material-ui/core/styles";
-
+import history from '../history/history.jsx';
 import Grid from "@material-ui/core/Grid";
 
 // import NavigationIcon from '@material-ui/icons/Navigation';
@@ -45,7 +45,11 @@ const DashboardStudent = (props) => {
         setUserID(resp.data.payload.ID)
         console.log(userType)
         console.log(userID)
-    })}
+      }).catch(error => {
+        console.log(error)
+        history.replace('/login')
+      })
+    }
     catch (error) {
         console.log(error)
     }
