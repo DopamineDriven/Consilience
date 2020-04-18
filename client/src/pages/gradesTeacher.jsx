@@ -26,6 +26,7 @@ const GradesTeacher = (props) => {
     // const [currentClassObj, setCurrentClassObj] = useState([]);
     const [userID, setUserID] = useState('');
     const [userType, setUserType] = useState('');
+    const [teacherID, setTeacherID] = useState('');
     const [classID, setClassID] = useState('');
     const [tabValue, setTabValue] = useState(' ');
     const [studentArr, setStudentArr] = useState([]);
@@ -39,6 +40,7 @@ const GradesTeacher = (props) => {
         loadClassInfo()
         console.log("useEffect userType", userType)
         console.log('useEffect userID', userID)
+        console.log('useEffect teacherID', teacherID)
 
         // console.log('useEffect Assignments', assignments)
         // console.log('useEffect Tab Value', tabValue)
@@ -51,7 +53,7 @@ const GradesTeacher = (props) => {
 
         // return () => mounted = false;
 
-    }, [userType, userID])
+    }, [userType, userID, teacherID])
 
 
     function getAndVerifyUserInfo() {
@@ -59,11 +61,19 @@ const GradesTeacher = (props) => {
             .then((resp) => {
                 console.log("cookie call resp: ", resp)
                 console.log("dropping the payload: ", resp.data.payload)
-                setUserType(resp.data.payload.type)
-                setUserID(resp.data.payload._id)
-                selectLastTab()
-                console.log("verify ", userType)
-                console.log("verify ", userID)
+
+                if(resp.data.payload.type === 'Teacher'){
+                    console.log('User is a teacher')
+                    setUserType(resp.data.payload.type)
+                    setUserID(resp.data.payload._id)
+                    setTeacherID(resp.data.payload.ID)
+                    selectLastTab()
+                } else {
+                    
+                    console.log('not a teacher', resp.data.payload.type)
+                    history.replace('/dashboardTeacher')
+                }
+               
                 //load the classes after the userID And userType are received from token
             })
             .catch(error => {
@@ -73,6 +83,7 @@ const GradesTeacher = (props) => {
     }
 
     function loadClassInfo() {
+
         setClassID(localStorage.getItem('classId'))
 
         console.log("load class ID", classID);
@@ -81,22 +92,31 @@ const GradesTeacher = (props) => {
         API.populateByID(classID)
             .then(resp => {
 
-                console.log(resp.data)
+                if ( userID === resp.data.teacherID ) {
+
+                console.log('you are the teacher', resp.data.teacherID, userID)
+                console.log('classroom data', resp.data)
                 const studentsData = resp.data.students
                 const assignmentsData = resp.data.assignments
 
                 setStudentArr(studentsData)
-
+                setAssignmentArr(assignmentsData)
+                } else {
+                    console.log('Access denied', resp.data.teacherID, userID)
+                    history.replace('/dashboardTeacher')
+                }
+                
                 // for (assignments of resp.data.assignments) {
                 //     // console.log(assignments)
                 //     gradebook.columnsGradeBook.push(assignments.title)
                 // }
 
-                setAssignmentArr(assignmentsData)
+             
 
             })
             .catch(err => console.log(err))
     }
+
 
     function selectLastTab() {
         const value = localStorage.getItem('tabValue')
