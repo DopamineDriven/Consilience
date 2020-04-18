@@ -8,6 +8,7 @@ const cors = require('cors');
 const PORT = process.env.PORT || 3003;
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
+const isProd = process.env.NODE_ENV === 'production';
 
 // cross-origin request security (CORS) 
 // prevents requests to unauthorized domains
@@ -32,7 +33,7 @@ app.use(routes);
 // router.post('/login) cookie parameter "secure" to true
 const MONGODB_URI = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds127260.mlab.com:27260/heroku_zpz7kd01`
 console.log(MONGODB_URI)
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/ProjectThree", {
+mongoose.connect(isProd ? process.env.MONGODB_URI : "mongodb://localhost/ProjectThree", {
   useNewUrlParser: true,
   useFindAndModify: false,
   useCreateIndex: true,
