@@ -78,7 +78,7 @@ const GradesTeacher = (props) => {
             })
             .catch(error => {
                 console.log(error)
-                history.replace('/login')
+                history.replace('/')
             })
     }
 
