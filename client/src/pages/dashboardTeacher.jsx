@@ -5,20 +5,15 @@ import custFunc from "../utils/customFunctions";
 //Importing components from component folder
 import Container from "../components/Container/Container.jsx";
 import TeacherClassCard from "../components/ClassCard/TeacherClassCard";
-import StudentClassCard from '../components/ClassCard/StudentClassCard'
+import StudentClassCard from '../components/ClassCard/StudentClassCard';
+import history from '../history/history.jsx';
 
 //Importing components and icons from material-ui
 // import Paper from '@material-ui/core/Paper';
 import Card from "@material-ui/core/Card";
 import { styled } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
-import {
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-} from "@material-ui/core";
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@material-ui/core";
 import { Button, Input, TextField } from "@material-ui/core";
 import { Menu, MenuItem } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
@@ -27,7 +22,6 @@ import AddIcon from "@material-ui/icons/Add";
 // import NavigationIcon from '@material-ui/icons/Navigation';
 // import Paper from '@material-ui/core/Paper';
 // import { makeStyles } from '@material-ui/core/styles';
-import history from '../history/history.jsx';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const MyCard = styled(Card)({
@@ -64,7 +58,7 @@ const DashBoardTeacher = (props) => {
             })
             .catch(error => {
                 console.log(error)
-                history.replace('/login')
+                history.replace('/')
             })
     }
 
