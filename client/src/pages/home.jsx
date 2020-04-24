@@ -52,6 +52,7 @@ const Home = () => {
                 .then(resp => {
                     console.log(resp)
                     setOpenDialog(false)
+                    setOpenLogin(false)
                     
                 })
                 .catch(err => console.log(err))
