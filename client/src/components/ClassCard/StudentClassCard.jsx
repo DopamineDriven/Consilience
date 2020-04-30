@@ -1,24 +1,29 @@
-import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 // import RootContext from '../../utils/RootContext';
 // import custFunc from '../../utils/customFunctions';
-import clsx from 'clsx';
-import './style.css';
+import clsx from "clsx";
+import "./style.css";
 
-import { Card, CardHeader, CardMedia, CardContent, CardActions } from '@material-ui/core';
-import Collapse from '@material-ui/core/Collapse';
-import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-import Badge from '@material-ui/core/Badge';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import Tooltip from '@material-ui/core/Tooltip';
-import { red } from '@material-ui/core/colors';
+import {
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  CardActions,
+} from "@material-ui/core";
+import Collapse from "@material-ui/core/Collapse";
+import { makeStyles } from "@material-ui/core/styles";
+import Avatar from "@material-ui/core/Avatar";
+import Badge from "@material-ui/core/Badge";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import Tooltip from "@material-ui/core/Tooltip";
+import { red } from "@material-ui/core/colors";
 
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-
+import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import NotificationsIcon from "@material-ui/icons/Notifications";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,33 +66,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ClassCard(props) {
-
-
-//   const { userType, setUserType, userID, setUserID, classID, setClassID } = useContext(RootContext)
+  //   const { userType, setUserType, userID, setUserID, classID, setClassID } = useContext(RootContext)
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [redirectUser, setRedirectUser] = useState(false);
-//   const [userID, setUserID] = useState('')
-//   const [userType, setUserType] = useState('')
-//   const [classID, setClassID] = useState('')
-
+  //   const [userID, setUserID] = useState('')
+  //   const [userType, setUserType] = useState('')
+  //   const [classID, setClassID] = useState('')
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   const handleEnterClass = (event, classID) => {
-    console.log(classID)
-    localStorage.setItem( 'classId', classID)
-    setRedirectUser('/classrooms')
-  }
-
+    console.log(classID);
+    localStorage.setItem("classId", classID);
+    setRedirectUser("/classrooms");
+  };
 
   if (redirectUser) {
-
-   return <Redirect to={redirectUser}
-    />
-}
+    return <Redirect to={redirectUser} />;
+  }
 
   return (
     <Card className={classes.root} value={props.classID}>
@@ -107,8 +106,8 @@ export default function ClassCard(props) {
           src=""
         />
       ) : (
-          ""
-        )}
+        ""
+      )}
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {props.imageCaption}
@@ -118,11 +117,13 @@ export default function ClassCard(props) {
       {/*----------------------- This is the Beginning of Card Button(Icons) location------------- */}
       <CardActions disableSpacing>
         <Tooltip title="Enter Classroom" aria-label="enter">
-          <IconButton onClick={(event) => handleEnterClass(event, props.classID)}>
-              <MeetingRoomIcon />
+          <IconButton
+            onClick={(event) => handleEnterClass(event, props.classID)}
+          >
+            <MeetingRoomIcon />
           </IconButton>
         </Tooltip>
-        <Badge badgeContent={4} color="secondary">
+        <Badge badgeContent={props.badgenotify} color="secondary">
           <NotificationsIcon />
         </Badge>
         <IconButton
