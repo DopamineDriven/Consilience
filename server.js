@@ -31,7 +31,7 @@ app.use(routes);
 // connect to MongoDB remotely or locally
 // when ready for production, go to userController and set 
 // router.post('/login) cookie parameter "secure" to true
-const MONGODB_URI = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds127260.mlab.com:27260/heroku_zpz7kd01`
+const MONGODB_URI =`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.mongodb.net/classroom?retryWrites=true&w=majority`;
 console.log(MONGODB_URI)
 mongoose.connect(isProd ? process.env.MONGODB_URI : "mongodb://localhost/ProjectThree", {
   useNewUrlParser: true,

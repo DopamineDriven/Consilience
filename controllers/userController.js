@@ -12,6 +12,7 @@ require("dotenv").config();
 // get expressjwt npm
 // use redis to blacklist https://futurestud.io/tutorials/learn-hapi-invalidate-jwts-with-blacklists
 
+
 // get all users
 router.get("/", async (req, res) => {
   console.log("in this route 13");
